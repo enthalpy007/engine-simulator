@@ -13,6 +13,9 @@ void figureOutBluetoothState();
 void figureOutAlarmState();
 void resetPreviousVariables();
 void timerisr();
+#if timeMainLoop
+  void calculateLoopTime();
+#endif
 
 bool debug = 1;
 bool accIn = 0;                             // is the accessory relay energized?
@@ -75,7 +78,7 @@ void setup() {
   Serial.begin(9600);
   Timer3.initialize();
   Timer3.attachInterrupt(timerisr);
-  Serial.println("Beginning...")
+  Serial.println("Beginning...");
 }
 
 void loop() {
@@ -100,7 +103,6 @@ void loop() {
 }
 
 #if timeMainLoop
-  void calculateLoopTime();
   void calculateLoopTime() {
     timeStamp = millis();
     deltaTimeStamp = timeStamp - previousTimeStamp;
