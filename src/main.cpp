@@ -3,6 +3,17 @@
 #include <string.h>
 #include "Engine_Simulator.h"
 
+void readInputs();
+void reportSerialData();
+void figureOutEngineSpeed();
+void figureOutKeyPosition();
+void processTachOutput();
+void processStatusLED();
+void figureOutBluetoothState();
+void figureOutAlarmState();
+void resetPreviousVariables();
+void timerisr();
+
 bool debug = 1;
 bool accIn = 0;                             // is the accessory relay energized?
 bool ignIn = 0;                             // is the ignition relay energized?
@@ -64,6 +75,7 @@ void setup() {
   Serial.begin(9600);
   Timer3.initialize();
   Timer3.attachInterrupt(timerisr);
+  Serial.println("Beginning...")
 }
 
 void loop() {
@@ -88,6 +100,7 @@ void loop() {
 }
 
 #if timeMainLoop
+  void calculateLoopTime();
   void calculateLoopTime() {
     timeStamp = millis();
     deltaTimeStamp = timeStamp - previousTimeStamp;
